@@ -1,5 +1,8 @@
 package com.github.cheenar.jgovtrack;
 
+import com.github.cheenar.jgovtrack.resources.GenericObjects;
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -9,6 +12,13 @@ import java.net.URL;
  */
 public class JsonUtil
 {
+
+    public static Gson gson = new Gson();
+
+    public static Object objectFromGenericObjects(Object o, Class c)
+    {
+        return gson.fromJson(gson.toJson(o), c);
+    }
 
     public static String getJson(String urlStr)
     {

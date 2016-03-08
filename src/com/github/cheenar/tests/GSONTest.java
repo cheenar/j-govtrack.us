@@ -1,21 +1,12 @@
 package com.github.cheenar.tests;
 
+import com.github.cheenar.jgovtrack.factories.BillFactory;
+import com.github.cheenar.jgovtrack.resources.Bill;
 import com.github.cheenar.jgovtrack.JsonUtil;
+import com.github.cheenar.jgovtrack.resources.Committee;
+import com.github.cheenar.jgovtrack.resources.GenericObjects;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 
 /**
  * @author Cheenar
@@ -27,18 +18,18 @@ public class GSONTest
 
     public static void main(String[] args) throws Exception
     {
-        String json = JsonUtil.getJson("https://www.govtrack.us/api/v2/bill/127129?format=jsonp");
-        System.out.println(json);
-        Gson gson = new Gson();
-        DataObject o = gson.fromJson(json, DataObject.class);
-        System.out.println(o.bill_resolution_type);
-    }
-
-    static class DataObject
-    {
-        String bill_resolution_type;
-        String bill_type;
-        String bill_type_label;
+        Bill o = BillFactory.newBill(127129);
+        System.out.println(o.getBill_type_label());
+        for(Committee c : o.getCommittees())
+        {
+            System.out.println(c.getName());
+        }
+        GenericObjects bills = BillFactory.getBills(100);
+        for(Object obj : bills.getObjects())
+        {
+            Bill bill = (Bill) JsonUtil.objectFromGenericObjects(obj, Bill.class);
+            System.out.println(bill.getId());
+        }
     }
 
 }

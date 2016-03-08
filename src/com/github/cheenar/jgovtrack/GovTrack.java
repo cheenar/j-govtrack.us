@@ -8,10 +8,6 @@ package com.github.cheenar.jgovtrack;
 public class GovTrack
 {
 
-    public GovTrack()
-    {
-    }
-
     public static String getAPIName()
     {
         return "JGovTrack";

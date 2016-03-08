@@ -1,6 +1,19 @@
 package com.github.cheenar.tests;
 
+import com.github.cheenar.jgovtrack.JsonUtil;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -12,33 +25,20 @@ import java.net.URL;
 public class GSONTest
 {
 
-    private static String getXML(String urlStr)
+    public static void main(String[] args) throws Exception
     {
-        StringBuilder json = new StringBuilder();
-        try
-        {
-            URL url = new URL(urlStr);
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-            String line = "";
-            while((line = in.readLine()) != null)
-            {
-                json.append(line);
-                json.append("\n");
-            }
-            in.close();
-            return json.toString();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        return "-1";
+        String json = JsonUtil.getJson("https://www.govtrack.us/api/v2/bill/127129?format=jsonp");
+        System.out.println(json);
+        Gson gson = new Gson();
+        DataObject o = gson.fromJson(json, DataObject.class);
+        System.out.println(o.bill_resolution_type);
     }
 
-    public static void main(String[] args)
+    static class DataObject
     {
-        String xml = getXML("https://www.govtrack.us/api/v2/bill/127129?format=xml");
-        System.out.println(xml);
+        String bill_resolution_type;
+        String bill_type;
+        String bill_type_label;
     }
 
 }

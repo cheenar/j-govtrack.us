@@ -1,5 +1,7 @@
 package com.github.cheenar.jgovtrack.resources;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -8,11 +10,12 @@ import java.util.List;
 public class GenericObjects
 {
 
-    private List<Object> objects;
+    @SerializedName("objects")
+    private List<Object> data;
 
-    public List<Object> getObjects()
+    public List<Object> getData()
     {
-        return this.objects;
+        return this.data;
     }
 
 }

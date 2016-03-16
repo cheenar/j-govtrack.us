@@ -1,5 +1,7 @@
 package com.github.cheenar.jgovtrack.resources;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by admin on 3/7/16.
  */
@@ -10,7 +12,8 @@ public class VoteVoter
     private int id;
     private Option option;
     private Person person;
-    private Role person_role;
+    @SerializedName("person_role")
+    private Role personRole;
     private Vote vote;
     private String voter_type;
     private String voter_type_label;
@@ -32,8 +35,8 @@ public class VoteVoter
         return person;
     }
 
-    public Role getPerson_role() {
-        return person_role;
+    public Role getPersonRole() {
+        return personRole;
     }
 
     public Vote getVote() {

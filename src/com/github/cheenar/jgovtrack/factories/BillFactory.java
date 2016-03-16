@@ -34,4 +34,10 @@ public class BillFactory
         return JsonUtil.gson.fromJson(jsonResponse, GenericObjects.class);
     }
 
+    public static GenericObjects getBillsFromCongress(int congressID, int limit, int offest)
+    {
+        String jsonResponse = JsonUtil.getJson("https://www.govtrack.us/api/v2/bill?congress=" + congressID + "&offset=" + offest + "&limit=" + limit);
+        return JsonUtil.gson.fromJson(jsonResponse, GenericObjects.class);
+    }
+
 }

@@ -18,4 +18,6 @@ public class GovTrack
         return new String[] { "Cheenar" };
     }
 
+    public static String getVersion()  { return "2.0.0"; }
+
 }

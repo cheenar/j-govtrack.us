@@ -3,6 +3,7 @@ package com.github.cheenar.jgovtrack.request;
 import com.github.cheenar.jgovtrack.JsonUtil;
 import com.github.cheenar.jgovtrack.resources.Bill;
 import com.github.cheenar.jgovtrack.resources.Committee;
+import com.github.cheenar.jgovtrack.resources.GenericObjects;
 import com.github.cheenar.jgovtrack.resources.Person;
 
 import java.util.Date;
@@ -64,11 +65,39 @@ public class RequestFactory
 
             url = url.concat("?");
 
-            url = url.concat("format=").concat(request.getFormat().name().toLowerCase());
+            url = addArgument(url, "format", request.getFormat().name().toLowerCase());
+            url = addArgument(url, "limit", Integer.toString(request.getLimit()));
+            url = addArgument(url, "offset", Integer.toString(request.getOffset()));
 
             if(request.getType().equals(RequestType.BILL) && !request.getQuery().equals("!!!NONEXISTENT!!!"))
-                url = url.concat("q=").concat(request.getQuery()).concat("&");
+                url = addArgument(url, "q", request.getQuery());
 
+            if(!request.getSort().equals("!!!NONEXISTENT!!!"))
+                url = addArgument(url, "sort", request.getSortOrder().equals(Request.SortOrder.DECSENDING) ? "-".concat(request.getSort()) : request.getSort());
+
+            if(request.getFilter().size() != 0)
+            {
+                for(String filter : request.getFilter().keySet())
+                {
+                    addArgument(url, filter, request.getFilter().get(filter));
+                }
+            }
+
+            if(request.getFields().size() != 0)
+            {
+                String _fields = "";
+                for(int i = 0; i < request.getFields().size(); i++)
+                {
+                    String _field = request.getFields().get(i);
+                    _fields = _fields.concat(_field);
+                    if(i != request.getFields().size() - 1)
+                    {
+                        _fields = _fields.concat(",");
+                    }
+                }
+            }
+
+            //Grab the JOSN
             String json = JsonUtil.getJson(url);
 
             if(request.getSearchableID() != -1)
@@ -89,12 +118,18 @@ public class RequestFactory
             }
             else
             {
-                Exception e = new Exception("not yet implemented");
-                throw e;
+                return (GenericObjects)JsonUtil.gson.fromJson(json, GenericObjects.class);
+                //Exception e = new Exception("not yet implemented");
+                //throw e;
             }
 
         }
         throw new IllegalArgumentException("Missing type and/or format");
+    }
+
+    private static String addArgument(String str, String name, String value)
+    {
+        return str.concat(name).concat("=").concat(value).concat("&");
     }
 
 }

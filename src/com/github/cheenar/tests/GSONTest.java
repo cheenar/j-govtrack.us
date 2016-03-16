@@ -7,6 +7,7 @@ import com.github.cheenar.jgovtrack.request.RequestFormat;
 import com.github.cheenar.jgovtrack.request.RequestType;
 import com.github.cheenar.jgovtrack.resources.Bill;
 import com.github.cheenar.jgovtrack.resources.GenericObjects;
+import com.github.cheenar.jgovtrack.resources.Person;
 
 /**
  * @author Cheenar
@@ -33,6 +34,7 @@ public class GSONTest
         }*/
 
         simpleBillRequest();
+        simplePersonRequest();
         simpleBillsRequest();
     }
 
@@ -48,6 +50,19 @@ public class GSONTest
         System.out.println(bill.getCurrent_status());
     }
 
+    public static void simplePersonRequest() throws Exception
+    {
+        Request request = RequestFactory.createRequest();
+        request.setLimit(100)
+                .setOffset(0)
+                .setFormat(RequestFormat.JSONP)
+                .setType(RequestType.PERSON)
+                .setSearchableID(300011);
+        Person person = (Person) RequestFactory.processRequest(request);
+        System.out.println(person.getName());
+        System.out.println();
+    }
+
     public static void simpleBillsRequest() throws Exception
     {
         Request request = RequestFactory.createRequest();
@@ -60,6 +75,7 @@ public class GSONTest
                 .addField("introduced_date")
                 .setSort("introduced_date");
         GenericObjects bills = (GenericObjects) RequestFactory.processRequest(request);
+        
         for(int i = 0; i < bills.getData().size(); i++)
         {
             Bill bill = (Bill) JsonUtil.objectFromGenericObjects(bills.getData().get(i), Bill.class);

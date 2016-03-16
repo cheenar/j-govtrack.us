@@ -1,5 +1,7 @@
 package com.github.cheenar.jgovtrack.resources;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -32,8 +34,10 @@ public class Bill
         }
     }
 
-    private String bill_resolution_type;
-    private String bill_type;
+    @SerializedName("bill_resolution_type")
+    private String billResolutionType;
+    @SerializedName("bill_type")
+    private String billType;
     private String bill_type_label;
     private List<Committee> committees;
     private int congress;
@@ -65,12 +69,12 @@ public class Bill
     private String title_without_number;
     private List<List<String>> titles;
 
-    public String getBill_resolution_type() {
-        return bill_resolution_type;
+    public String getBillResolutionType() {
+        return billResolutionType;
     }
 
-    public String getBill_type() {
-        return bill_type;
+    public String getBillType() {
+        return billType;
     }
 
     public String getBill_type_label() {

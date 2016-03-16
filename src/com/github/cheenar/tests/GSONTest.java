@@ -75,7 +75,7 @@ public class GSONTest
                 .addField("introduced_date")
                 .setSort("introduced_date");
         GenericObjects bills = (GenericObjects) RequestFactory.processRequest(request);
-        
+
         for(int i = 0; i < bills.getData().size(); i++)
         {
             Bill bill = (Bill) JsonUtil.objectFromGenericObjects(bills.getData().get(i), Bill.class);

@@ -3,8 +3,10 @@ package com.github.cheenar.jgovtrack.request;
 import java.util.ArrayList;
 
 /**
- * Created by admin on 3/15/16.
+ * @author Cheenar
+ * @date 3/15/16
  */
+
 public abstract class Request
 {
     private RequestType type;
@@ -12,23 +14,23 @@ public abstract class Request
     private int limit;
     private int offest;
 
-    private ArrayList<String> queries;
+    private String query;
+
     private ArrayList<String> filter;
 
-    private int billID;
-
-    private String requestURL;
+    //SearchableID - Bill, Committee, Person - Used to find specific *
+    private int searchableID;
 
     public Request()
     {
-        this.requestURL = "https://www.govtrack.us/api/v2/"; //base URL
         this.limit = 100;
         this.offest = 0;
 
-        this.queries = new ArrayList<String>();
+        this.query = "!!!NONEXISTENT!!!";
+
         this.filter = new ArrayList<String>();
 
-        this.billID = -1;
+        this.searchableID = -1;
     }
 
     /** Abstract **/
@@ -42,9 +44,9 @@ public abstract class Request
         return this.getMetadata()[index];
     }
 
-    public String getRequestURL()
+    public ArrayList<String> getFilter()
     {
-        return this.requestURL;
+        return this.filter;
     }
 
     public RequestType getType()
@@ -57,9 +59,9 @@ public abstract class Request
         return format;
     }
 
-    public int getBillID()
+    public int getSearchableID()
     {
-        return this.billID;
+        return this.searchableID;
     }
 
     public int getLimit()
@@ -67,22 +69,17 @@ public abstract class Request
         return this.limit;
     }
 
-    public ArrayList<String> getQueries()
-    {
-        return this.queries;
-    }
-
-    public ArrayList<String> getFilter()
-    {
-        return this.filter;
-    }
-
-    /** Setters **/
-
     public int getOffest()
     {
         return this.offest;
     }
+
+    public String getQuery()
+    {
+        return this.query;
+    }
+
+    /** Setters **/
 
     public Request setType(RequestType type)
     {
@@ -108,9 +105,15 @@ public abstract class Request
         return this;
     }
 
-    public Request setBillID(int billID)
+    public Request setSearchableID(int searchableID)
     {
-        this.billID = billID;
+        this.searchableID = searchableID;
+        return this;
+    }
+
+    public Request setQuery(String query)
+    {
+        this.query = query;
         return this;
     }
 

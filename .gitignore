@@ -7,12 +7,4 @@ jgovtrack.iml
 .idea/vcs.xml
 .idea/workspace.xml
 .idea/copyright/profiles_settings.xml
-out/production/jgovtrack/com/github/cheenar/jgovtrack/request/Request.class
-out/production/jgovtrack/com/github/cheenar/jgovtrack/request/RequestFactory$1.class
-out/production/jgovtrack/com/github/cheenar/jgovtrack/request/RequestFactory.class
-out/production/jgovtrack/com/github/cheenar/jgovtrack/request/RequestFormat.class
-out/production/jgovtrack/com/github/cheenar/jgovtrack/request/RequestType.class
-out/production/jgovtrack/com/github/cheenar/jgovtrack/factories/BillFactory.class
-out/production/jgovtrack/com/github/cheenar/jgovtrack/resources/GenericObjects.class
-out/production/jgovtrack/com/github/cheenar/jgovtrack/resources/VoteVoter.class
-out/production/jgovtrack/com/github/cheenar/tests/GSONTest.class
+out/production/jgovtrack/com/github/cheenar/*

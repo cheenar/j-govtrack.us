@@ -68,7 +68,7 @@ public class GSONTest
         Request request = RequestFactory.createRequest();
         request.setLimit(100)
                 .setOffset(300000)
-                .setFormat(RequestFormat.JSONP)
+                .setFormat(RequestFormat.CSV)
                 .setType(RequestType.BILL)
                 .addField("congress")
                 .addField("title")

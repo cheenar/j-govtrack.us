@@ -97,30 +97,37 @@ public class RequestFactory
                 }
             }
 
-            //Grab the JOSN
-            String json = JsonUtil.getJson(url);
-
-            if(request.getSearchableID() != -1)
+            if(request.getFormat().equals(RequestFormat.JSONP))
             {
-                //if I search for an individual object
-                switch(request.getType())
-                {
-                    case BILL:
-                        return (Bill) JsonUtil.gson.fromJson(json, Bill.class);
-                    case PERSON:
-                        return (Person) JsonUtil.gson.fromJson(json, Person.class);
-                    case COMMITTEE:
-                        return (Committee) JsonUtil.gson.fromJson(json, Committee.class);
+                //Grab the JOSN
+                String json = JsonUtil.getJson(url);
 
-                    default:
-                        break;
+                if(request.getSearchableID() != -1)
+                {
+                    //if I search for an individual object
+                    switch(request.getType())
+                    {
+                        case BILL:
+                            return (Bill) JsonUtil.gson.fromJson(json, Bill.class);
+                        case PERSON:
+                            return (Person) JsonUtil.gson.fromJson(json, Person.class);
+                        case COMMITTEE:
+                            return (Committee) JsonUtil.gson.fromJson(json, Committee.class);
+
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    return (GenericObjects)JsonUtil.gson.fromJson(json, GenericObjects.class);
+                    //Exception e = new Exception("not yet implemented");
+                    //throw e;
                 }
             }
-            else
+            if(request.getFormat().equals(RequestFormat.CSV))
             {
-                return (GenericObjects)JsonUtil.gson.fromJson(json, GenericObjects.class);
-                //Exception e = new Exception("not yet implemented");
-                //throw e;
+                
             }
 
         }

@@ -6,6 +6,7 @@ package com.github.cheenar.jgovtrack.request;
 public enum RequestFormat
 {
 
-    JSONP;
+    JSONP,
+    CSV;
 
 }

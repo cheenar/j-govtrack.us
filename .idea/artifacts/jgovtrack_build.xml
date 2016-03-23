@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="jgovtrack_build">
+    <output-path>$PROJECT_DIR$/out/artifacts/jgovtrack_build</output-path>
+    <root id="archive" name="jgovtrack_build.jar">
+      <element id="module-output" name="jgovtrack" />
+    </root>
+  </artifact>
+</component>
